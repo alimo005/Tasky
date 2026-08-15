@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import '../core/services/sharedpreferences_manager.dart';
-import '../core/widgets/tasks_list_widgets.dart';
-import '../models/taskModel.dart';
+import '../../core/services/sharedpreferences_manager.dart';
+import '../../core/widgets/tasks_list_widgets.dart';
+import '../../models/taskModel.dart';
 
 class TodoScreen extends StatefulWidget {
   const TodoScreen({super.key});
