@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tasky/models/taskModel.dart';
+import '../../core/constants/storge_key.dart';
 import '../../core/services/sharedpreferences_manager.dart';
 import '../../core/widgets/custom_svg_image.dart';
 import '../../core/widgets/tasks_list_slivers.dart';
@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _loadName() async {
     setState(() {
-      userName = SharedPreferencesManager().getString("userName");
+      userName = SharedPreferencesManager().getString(StorgeKey.userName);
       imagePath = SharedPreferencesManager().getString("user_image");
     });
   }

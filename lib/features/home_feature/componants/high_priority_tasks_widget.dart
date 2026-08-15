@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
 import 'package:tasky/models/taskModel.dart';
 import '../../tasks_feature/high_priority_tasks_screen.dart';
