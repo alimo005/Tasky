@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../core/services/sharedpreferences_manager.dart';
-import '../core/widgets/custom_svg_image.dart';
-import '../core/widgets/custom_text_formfield.dart';
-import 'main_screen.dart';
+import '../../core/services/sharedpreferences_manager.dart';
+import '../../core/widgets/custom_svg_image.dart';
+import '../../core/widgets/custom_text_formfield.dart';
+import '../navegation_feature/main_screen.dart';
 
 class LogIn_Screen extends StatelessWidget {
   LogIn_Screen({super.key});

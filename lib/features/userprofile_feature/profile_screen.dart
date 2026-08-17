@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
-import 'package:tasky/screens/user_details_screen.dart';
-import '../core/services/sharedpreferences_manager.dart';
-import '../core/widgets/custom_svg_image.dart';
-import 'login_screen.dart';
+import 'package:tasky/features/userprofile_feature/user_details_screen.dart';
+import '../../core/constants/storge_key.dart';
+import '../../core/services/sharedpreferences_manager.dart';
+import '../../core/widgets/custom_svg_image.dart';
+import '../login_feature/login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -27,7 +28,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void _loadData() async {
     setState(() {
-      userName = SharedPreferencesManager().getString("userName") ?? "";
+      userName = SharedPreferencesManager().getString(StorgeKey.userName) ?? "";
       motivation_quote = SharedPreferencesManager().getString("motivation_quote") ?? "";
       userImagePath = SharedPreferencesManager().getString("user_image");
     });
@@ -207,7 +208,7 @@ _showAlertDialog_logOut(BuildContext context) {
 
           TextButton(
             onPressed: () {
-              SharedPreferencesManager().remove("userName");
+              SharedPreferencesManager().remove(StorgeKey.userName);
               SharedPreferencesManager().remove("motivation_quote");
               SharedPreferencesManager().remove("tasks");
               SharedPreferencesManager().remove("user_image");

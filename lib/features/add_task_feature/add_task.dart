@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tasky/models/taskModel.dart';
-import '../core/services/sharedpreferences_manager.dart';
-import '../core/widgets/custom_text_formfield.dart';
+import '../../core/services/sharedpreferences_manager.dart';
+import '../../core/widgets/custom_text_formfield.dart';
 
 class AddTask extends StatefulWidget {
   AddTask({super.key});

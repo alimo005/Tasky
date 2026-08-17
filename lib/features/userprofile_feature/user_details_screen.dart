@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../core/services/sharedpreferences_manager.dart';
-import '../core/widgets/custom_text_formfield.dart';
+import '../../core/services/sharedpreferences_manager.dart';
+import '../../core/widgets/custom_text_formfield.dart';
 
 class UserDetailsScreen extends StatefulWidget {
   UserDetailsScreen({super.key , required this.userName , required this.motivation_quote});
