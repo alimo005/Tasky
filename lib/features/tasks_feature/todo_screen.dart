@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import '../../core/constants/storge_key.dart';
 import '../../core/services/sharedpreferences_manager.dart';
 import '../../core/widgets/tasks_list_widgets.dart';
 import '../../models/taskModel.dart';
@@ -20,7 +21,7 @@ class _TodoScreenState extends State<TodoScreen> {
   }
 
   void _loadTask() async {
-    final taskEnCode = SharedPreferencesManager().getString("tasks");
+    final taskEnCode = SharedPreferencesManager().getString(StorgeKey.tasks);
 
     if (taskEnCode != null) {
       final taskAfterDecode = jsonDecode(taskEnCode) as List<dynamic>;
@@ -43,7 +44,7 @@ class _TodoScreenState extends State<TodoScreen> {
     List<TaskModel> tasks = [];
     if (id == null) return;
 
-    final finalTask = SharedPreferencesManager().getString("tasks");
+    final finalTask = SharedPreferencesManager().getString(StorgeKey.tasks);
 
     if (finalTask != null) {
       final taskAfterDecode = jsonDecode(finalTask) as List<dynamic>;
@@ -59,7 +60,7 @@ class _TodoScreenState extends State<TodoScreen> {
       final upDatedTask = tasks
           .map((element) => element.toJson())
           .toList();
-      SharedPreferencesManager().setString("tasks", jsonEncode(upDatedTask));
+      SharedPreferencesManager().setString(StorgeKey.tasks, jsonEncode(upDatedTask));
     }
   }
 
@@ -85,7 +86,7 @@ class _TodoScreenState extends State<TodoScreen> {
                     todoList[index!].isDone = value ?? false;
                   });
 
-                  final allData = SharedPreferencesManager().getString("tasks");
+                  final allData = SharedPreferencesManager().getString(StorgeKey.tasks);
 
                   if (allData != null) {
 
@@ -98,7 +99,7 @@ class _TodoScreenState extends State<TodoScreen> {
                     );
                     allDataList[newIndex] = todoList[index!];
 
-                    await SharedPreferencesManager().setString("tasks", jsonEncode(allDataList));
+                    await SharedPreferencesManager().setString(StorgeKey.tasks, jsonEncode(allDataList));
                     _loadTask();
                   }
                 }, onDelete: (int? id) {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
 import 'package:tasky/models/taskModel.dart';
 
+import '../constants/storge_key.dart';
 import '../enums/tasks_actions_enum.dart';
 import '../services/sharedpreferences_manager.dart';
 import 'custom_check_box.dart';
@@ -212,7 +213,7 @@ class TaskItemWidget extends StatelessWidget {
                     ElevatedButton.icon(
                       onPressed: () async {
                         if (_formKey.currentState?.validate() ?? false) {
-                              final taskJson = await SharedPreferencesManager().getString("tasks");
+                              final taskJson = await SharedPreferencesManager().getString(StorgeKey.tasks);
 
                                List<dynamic> tasksList = [];
 
@@ -236,7 +237,7 @@ class TaskItemWidget extends StatelessWidget {
 
                               final taskEncode = jsonEncode(tasksList);
 
-                              await SharedPreferencesManager().setString("tasks",taskEncode,);
+                              await SharedPreferencesManager().setString(StorgeKey.tasks,taskEncode,);
 
                               Navigator.of(context).pop(true);
                         }

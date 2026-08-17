@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tasky/models/taskModel.dart';
+import '../../core/constants/storge_key.dart';
 import '../../core/services/sharedpreferences_manager.dart';
 import '../../core/widgets/tasks_list_widgets.dart';
 
@@ -20,7 +21,7 @@ class _CompletedTasksScreenState extends State<CompletedTasksScreen> {
   }
 
   void _loadTask() async {
-    final taskEnCode = SharedPreferencesManager().getString("tasks");
+    final taskEnCode = SharedPreferencesManager().getString(StorgeKey.tasks);
 
     if (taskEnCode != null) {
       final taskAfterDecode = jsonDecode(taskEnCode) as List<dynamic>;
@@ -58,7 +59,7 @@ class _CompletedTasksScreenState extends State<CompletedTasksScreen> {
       final upDatedTask = tasks
           .map((element) => element.toJson())
           .toList();
-      SharedPreferencesManager().setString("tasks", jsonEncode(upDatedTask));
+      SharedPreferencesManager().setString(StorgeKey.tasks, jsonEncode(upDatedTask));
     }
   }
 
@@ -86,7 +87,7 @@ class _CompletedTasksScreenState extends State<CompletedTasksScreen> {
                   completedTask[index!].isDone = value ?? false;
                 });
 
-                final allData = SharedPreferencesManager().getString("tasks");
+                final allData = SharedPreferencesManager().getString(StorgeKey.tasks);
 
                 if (allData != null) {
                   List<dynamic> list = (jsonDecode(allData) as List);
@@ -101,7 +102,7 @@ class _CompletedTasksScreenState extends State<CompletedTasksScreen> {
                   allDataList[newIndex] = completedTask[index!];
 
                   await SharedPreferencesManager().setString(
-                    "tasks",
+                    StorgeKey.tasks,
                     jsonEncode(allDataList),
                   );
                   _loadTask();

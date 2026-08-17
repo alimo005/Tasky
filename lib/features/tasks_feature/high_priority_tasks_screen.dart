@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tasky/models/taskModel.dart';
 
+import '../../core/constants/storge_key.dart';
 import '../../core/services/sharedpreferences_manager.dart';
 import '../../core/widgets/tasks_list_widgets.dart';
 
@@ -23,7 +24,7 @@ class _HighPriorityTasksScreenState extends State<HighPriorityTasksScreen> {
   }
 
   void _loadTask() async {
-    final taskEnCode = SharedPreferencesManager().getString("tasks");
+    final taskEnCode = SharedPreferencesManager().getString(StorgeKey.tasks);
 
     if (taskEnCode != null) {
       final taskAfterDecode = jsonDecode(taskEnCode) as List<dynamic>;
@@ -46,7 +47,7 @@ class _HighPriorityTasksScreenState extends State<HighPriorityTasksScreen> {
 
     if (id == null) return;
 
-    final finalTask = SharedPreferencesManager().getString("tasks");
+    final finalTask = SharedPreferencesManager().getString(StorgeKey.tasks);
 
     if (finalTask != null) {
       final taskAfterDecode = jsonDecode(finalTask) as List<dynamic>;
@@ -60,7 +61,7 @@ class _HighPriorityTasksScreenState extends State<HighPriorityTasksScreen> {
       });
 
       final upDatedTask = tasks.map((element) => element.toJson()).toList();
-      SharedPreferencesManager().setString("tasks", jsonEncode(upDatedTask));
+      SharedPreferencesManager().setString(StorgeKey.tasks, jsonEncode(upDatedTask));
     }
   }
 
@@ -78,7 +79,7 @@ class _HighPriorityTasksScreenState extends State<HighPriorityTasksScreen> {
               setState(() {
                 highPriorityTasksList[index!].isDone = value ?? false;
               });
-              final allData = SharedPreferencesManager().getString("tasks");
+              final allData = SharedPreferencesManager().getString(StorgeKey.tasks);
 
               if (allData != null) {
                 List<dynamic> list = (jsonDecode(allData) as List);
@@ -93,7 +94,7 @@ class _HighPriorityTasksScreenState extends State<HighPriorityTasksScreen> {
                 allDataList[newIndex] = highPriorityTasksList[index!];
 
                 await SharedPreferencesManager().setString(
-                  "tasks",
+                  StorgeKey.tasks,
                   jsonEncode(allDataList),
                 );
                 _loadTask();

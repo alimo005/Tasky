@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tasky/models/taskModel.dart';
+import '../../core/constants/storge_key.dart';
 import '../../core/services/sharedpreferences_manager.dart';
 import '../../core/widgets/custom_text_formfield.dart';
 
@@ -83,7 +84,7 @@ class _AddTaskState extends State<AddTask> {
                 onPressed: () async {
                   if (_formKey.currentState?.validate() ?? false) {
                     final taskJson = await SharedPreferencesManager().getString(
-                      "tasks",
+                      StorgeKey.tasks,
                     );
 
                     List<dynamic> tasksList = [];
@@ -103,7 +104,7 @@ class _AddTaskState extends State<AddTask> {
                     final taskEncode = jsonEncode(tasksList);
 
                     await SharedPreferencesManager().setString(
-                      "tasks",
+                      StorgeKey.tasks,
                       taskEncode,
                     );
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/constants/storge_key.dart';
 import '../../core/services/sharedpreferences_manager.dart';
 import '../../core/widgets/custom_text_formfield.dart';
 
@@ -74,9 +75,9 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                 ),
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    SharedPreferencesManager().setString("userName", userNameController.value.text);
+                    SharedPreferencesManager().setString(StorgeKey.userName, userNameController.value.text);
 
-                    SharedPreferencesManager().setString("motivation_quote", motivationController.value.text);
+                    SharedPreferencesManager().setString(StorgeKey.quote, motivationController.value.text);
 
                     Navigator.of(context).pop(true);
                   }

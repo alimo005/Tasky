@@ -22,13 +22,13 @@ class HomeController extends ChangeNotifier {
 
   void loadName() async {
     userName = SharedPreferencesManager().getString(StorgeKey.userName);
-    imagePath = SharedPreferencesManager().getString("user_image");
+    imagePath = SharedPreferencesManager().getString(StorgeKey.imagePath);
 
     notifyListeners();
   }
 
   void loadTask() async {
-    final taskEnCode = SharedPreferencesManager().getString("tasks");
+    final taskEnCode = SharedPreferencesManager().getString(StorgeKey.tasks);
 
     if (taskEnCode != null) {
       final taskAfterDecode = jsonDecode(taskEnCode) as List<dynamic>;
@@ -47,7 +47,7 @@ class HomeController extends ChangeNotifier {
   }
 
   void loadQuote() async {
-    quote = SharedPreferencesManager().getString("motivation_quote") ?? "";
+    quote = SharedPreferencesManager().getString(StorgeKey.quote) ?? "";
     notifyListeners();
 
   }
@@ -65,7 +65,7 @@ class HomeController extends ChangeNotifier {
     percentage_fun();
 
     final updatedData = taskList.map((element) => element.toJson()).toList();
-    SharedPreferencesManager().setString("tasks", jsonEncode(updatedData));
+    SharedPreferencesManager().setString(StorgeKey.tasks, jsonEncode(updatedData));
 
     notifyListeners();
 
@@ -77,7 +77,7 @@ class HomeController extends ChangeNotifier {
     percentage_fun();
 
     final upDatedTask = taskList.map((element) => element.toJson()).toList();
-    SharedPreferencesManager().setString("tasks", jsonEncode(upDatedTask));
+    SharedPreferencesManager().setString(StorgeKey.tasks, jsonEncode(upDatedTask));
 
     notifyListeners();
 

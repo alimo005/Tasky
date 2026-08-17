@@ -29,8 +29,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _loadData() async {
     setState(() {
       userName = SharedPreferencesManager().getString(StorgeKey.userName) ?? "";
-      motivation_quote = SharedPreferencesManager().getString("motivation_quote") ?? "";
-      userImagePath = SharedPreferencesManager().getString("user_image");
+      motivation_quote = SharedPreferencesManager().getString(StorgeKey.quote) ?? "";
+      userImagePath = SharedPreferencesManager().getString(StorgeKey.imagePath);
     });
   }
 
@@ -187,7 +187,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> _saveImage(XFile file) async {
     final appDir = await getApplicationDocumentsDirectory();
    final image =  await File(file.path).copy('${appDir.path}/${file.name}');
-    SharedPreferencesManager().setString("user_image", image.path);
+    SharedPreferencesManager().setString(StorgeKey.imagePath, image.path);
   }
 }
 
@@ -209,9 +209,9 @@ _showAlertDialog_logOut(BuildContext context) {
           TextButton(
             onPressed: () {
               SharedPreferencesManager().remove(StorgeKey.userName);
-              SharedPreferencesManager().remove("motivation_quote");
-              SharedPreferencesManager().remove("tasks");
-              SharedPreferencesManager().remove("user_image");
+              SharedPreferencesManager().remove(StorgeKey.quote);
+              SharedPreferencesManager().remove(StorgeKey.tasks);
+              SharedPreferencesManager().remove(StorgeKey.imagePath);
 
               Navigator.pushAndRemoveUntil(
                 context,

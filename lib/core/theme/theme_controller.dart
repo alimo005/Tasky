@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constants/storge_key.dart';
 import '../services/sharedpreferences_manager.dart';
 
 class ThemeController {
@@ -7,7 +8,7 @@ class ThemeController {
   );
 
   void init() {
-    bool result = SharedPreferencesManager().getBool("theme") ?? false;
+    bool result = SharedPreferencesManager().getBool(StorgeKey.theme) ?? false;
 
     themeNotifier.value = result
         ? themeNotifier.value = ThemeMode.dark
@@ -17,10 +18,10 @@ class ThemeController {
   void switchTheme() async {
     if (themeNotifier.value == ThemeMode.dark) {
       themeNotifier.value = ThemeMode.light;
-      await SharedPreferencesManager().setBool("theme", false);
+      await SharedPreferencesManager().setBool(StorgeKey.theme, false);
     } else {
       themeNotifier.value = ThemeMode.dark;
-      await SharedPreferencesManager().setBool("theme", true);
+      await SharedPreferencesManager().setBool(StorgeKey.theme, true);
     }
   }
 

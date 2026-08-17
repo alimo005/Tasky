@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasky/core/constants/storge_key.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
 import 'package:tasky/features/login_feature/login_screen.dart';
 import 'package:tasky/features/navegation_feature/main_screen.dart';
@@ -11,7 +12,7 @@ void main() async {
 
   await SharedPreferencesManager().init();
 
-  String? userName = SharedPreferencesManager().getString("userName");
+  String? userName = SharedPreferencesManager().getString(StorgeKey.userName);
 
   ThemeController().init();
 

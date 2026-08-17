@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../core/constants/storge_key.dart';
 import '../../core/services/sharedpreferences_manager.dart';
 import '../../core/widgets/custom_svg_image.dart';
 import '../../core/widgets/custom_text_formfield.dart';
@@ -92,7 +93,7 @@ class LogIn_Screen extends StatelessWidget {
                         if (_formKey.currentState!.validate()) {
 
                           SharedPreferencesManager().setString(
-                            "userName",
+                            StorgeKey.userName,
                             controller.value.text,
                           );
 
