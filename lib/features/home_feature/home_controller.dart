@@ -16,11 +16,11 @@ class HomeController extends ChangeNotifier {
   String? imagePath;
 
   void initState() {
-    loadName();
+    loadUserDate();
     loadTask();
   }
 
-  void loadName() async {
+  void loadUserDate() async {
     userName = SharedPreferencesManager().getString(StorgeKey.userName);
     imagePath = SharedPreferencesManager().getString(StorgeKey.imagePath);
 
@@ -41,9 +41,7 @@ class HomeController extends ChangeNotifier {
       percentage_fun();
       loadQuote();
     }
-
     notifyListeners();
-
   }
 
   void loadQuote() async {
@@ -60,7 +58,7 @@ class HomeController extends ChangeNotifier {
 
   }
 
-  void highPriorityCheck(bool? value, int? index) async {
+  void doneTask(bool? value, int? index) async {
     taskList[index!].isDone = value ?? false;
     percentage_fun();
 

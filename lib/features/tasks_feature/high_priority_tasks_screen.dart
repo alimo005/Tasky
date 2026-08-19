@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:tasky/models/taskModel.dart';
-
 import '../../core/constants/storge_key.dart';
 import '../../core/services/sharedpreferences_manager.dart';
 import '../../core/widgets/tasks_list_widgets.dart';
