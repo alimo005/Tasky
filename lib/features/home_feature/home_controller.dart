@@ -18,6 +18,7 @@ class HomeController extends ChangeNotifier {
   void initState() {
     loadUserDate();
     loadTask();
+    loadQuote();
   }
 
   void loadUserDate() async {
@@ -39,7 +40,6 @@ class HomeController extends ChangeNotifier {
 
       taskList = taskFinal;
       percentage_fun();
-      loadQuote();
     }
     notifyListeners();
   }
@@ -47,7 +47,6 @@ class HomeController extends ChangeNotifier {
   void loadQuote() async {
     quote = SharedPreferencesManager().getString(StorgeKey.quote) ?? "";
     notifyListeners();
-
   }
 
   void percentage_fun() {

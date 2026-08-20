@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext _) {
     return ChangeNotifierProvider(
 
       create: (_) => HomeController()..initState(),

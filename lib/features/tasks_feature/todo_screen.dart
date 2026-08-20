@@ -1,118 +1,52 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import '../../core/constants/storge_key.dart';
-import '../../core/services/sharedpreferences_manager.dart';
+import 'package:provider/provider.dart';
+import 'package:tasky/features/tasks_feature/tasks_controller.dart';
 import '../../core/widgets/tasks_list_widgets.dart';
 import '../../models/taskModel.dart';
 
-class TodoScreen extends StatefulWidget {
+class TodoScreen extends StatelessWidget {
   const TodoScreen({super.key});
 
   @override
-  State<TodoScreen> createState() => _TodoScreenState();
-}
-
-class _TodoScreenState extends State<TodoScreen> {
-  List<TaskModel> todoList = [];
-
-  void initState() {
-    super.initState();
-    _loadTask();
-  }
-
-  void _loadTask() async {
-    final taskEnCode = SharedPreferencesManager().getString(StorgeKey.tasks);
-
-    if (taskEnCode != null) {
-      final taskAfterDecode = jsonDecode(taskEnCode) as List<dynamic>;
-
-      final taskFinal = taskAfterDecode.map((element) {
-        return TaskModel.fromJson(element);
-      }).toList();
-
-      setState(() {
-        todoList = taskFinal;
-        todoList = todoList
-            .where((element) => element.isDone == false)
-            .toList();
-      });
-    }
-  }
-
-
-  _deleteTask(int? id) async {
-    List<TaskModel> tasks = [];
-    if (id == null) return;
-
-    final finalTask = SharedPreferencesManager().getString(StorgeKey.tasks);
-
-    if (finalTask != null) {
-      final taskAfterDecode = jsonDecode(finalTask) as List<dynamic>;
-      tasks = taskAfterDecode
-          .map((element) => TaskModel.fromJson(element))
-          .toList();
-      tasks.removeWhere((element) => element.id == id);
-
-      setState(() {
-        todoList.removeWhere((taskList) => taskList.id == id);
-      });
-
-      final upDatedTask = tasks
-          .map((element) => element.toJson())
-          .toList();
-      SharedPreferencesManager().setString(StorgeKey.tasks, jsonEncode(upDatedTask));
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Text("To Do Tasks" ,
-            style: TextTheme.of(context).titleMedium
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TasksListWidgets(
-                taskList: todoList,
-                onTap: (bool? value, int? index) async {
-
-                  setState(() {
-                    todoList[index!].isDone = value ?? false;
-                  });
-
-                  final allData = SharedPreferencesManager().getString(StorgeKey.tasks);
-
-                  if (allData != null) {
-
-                    List<dynamic> list = (jsonDecode(allData) as List);
-
-                    List<TaskModel> allDataList = list.map((e) => TaskModel.fromJson(e)).toList();
-
-                    final int newIndex = allDataList.indexWhere(
-                          (e) => e.id == todoList[index!].id,
-                    );
-                    allDataList[newIndex] = todoList[index!];
-
-                    await SharedPreferencesManager().setString(StorgeKey.tasks, jsonEncode(allDataList));
-                    _loadTask();
-                  }
-                }, onDelete: (int? id) {
-              _deleteTask(id);
-
-            }, onEdit: () {
-                  _loadTask();
-            },
+  Widget build(BuildContext _) {
+    return ChangeNotifierProvider<TasksController>(
+      create: (_) => TasksController()..init(),
+      builder: (context, _) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                "To Do Tasks",
+                style: TextTheme.of(context).titleMedium,
+              ),
             ),
-          ),
-        ),
-      ],
-    );
+            Consumer<TasksController>(
 
+              builder: (BuildContext context, TasksController value, Widget? child) {
+                return Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: TasksListWidgets(
+                      taskList: value.toDoTasks,
+                      onTap: (bool? value, int? index) async {
+                        context.read<TasksController>().doneTask(value, index);
+                      },
+                      onDelete: (int? id) {
+                        context.read<TasksController>().deleteTask(id);
+                      },
+                      onEdit: () {
+                        context.read<TasksController>().loadTasks();
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
